@@ -13,5 +13,5 @@ depends() {
 
 install() {
     inst_hookpre "initqueue" 00 "$moddir/nm-start.sh"
-    inst_simple "$moddir/nm-wired.conf" "/etc/NetworkManager/system-connections/"
+    inst_simple "$moddir/dracut-nm-wired.nmconnection" "/etc/NetworkManager/system-connections/"
 }

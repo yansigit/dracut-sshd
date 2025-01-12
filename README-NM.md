@@ -8,7 +8,7 @@ To use NetworkManager instead of networkd, follow these steps:
     cp -ri 46sshd-networkmanager /usr/lib/dracut/modules.d
     ```
 
-2.  Create a NetworkManager configuration file, for example at `/etc/NetworkManager/system-connections/nm-wired.conf`:
+2.  Create a NetworkManager configuration file, for example at `/etc/NetworkManager/system-connections/dracut-nm-wired.nmconnection`:
 
     ```
     [connection]
