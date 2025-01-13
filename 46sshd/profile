@@ -5,3 +5,8 @@ fi
 if [ -n "$TERM" ]; then
     export TERM=vt220
 fi
+
+uuid=$(blkid | grep "crypto_LUKS" | awk '/\/dev\/sd[[:alpha:]]1/ {print $2}' | sed 's/UUID=//;s/"//g')
+if [ -n "$uuid" ]; then
+    cryptsetup luksOpen UUID=${uuid} encrypted_data
+fi

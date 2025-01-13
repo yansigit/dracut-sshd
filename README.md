@@ -6,26 +6,24 @@ To use NetworkManager instead of networkd, follow these steps:
 
 2. execute `usermod -p '*' root` on root user
 
-3.  Copy the `46sshd` and `99sshd-networkmanager` subdirectories to the Dracut module directory:
+3. Copy the `46sshd` and `99sshd-networkmanager` subdirectories to the Dracut module directory:
 
     ```bash
     sudo cp -r 46sshd /usr/lib/dracut/modules.d
     sudo cp -r 99sshd-networkmanager /usr/lib/dracut/modules.d
+    sudo cp -r 99cryptsetup-fdisk-lsblk /usr/lib/dracut/modules.d
     ```
 
-4.  Create an authorized keys file at `/root/.ssh/authorized_keys`. This file should contain the public keys that you want to use to connect to the system during early boot. For example:
+4. Create an authorized keys file at `/root/.ssh/authorized_keys`. This file should contain the public keys that you want to use to connect to the system during early boot. For example:
 
     ```
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1... user@example.com
-    ```
 
-<!-- 5. Modify grub config and add `rd.neednet=1` to `GRUB_CMDLINE_LINUX`.
-`ip=dhcp` also can be used optionally.
+5. Set the mountpoint for the encrypted root partition in the `/etc/fstab` file. For example:
+
     ```
-    sudo nano /etc/default/grub
-    sudo dnf install grub2 grub2-tools
-    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-    ``` -->
+    /dev/mapper/encrypted_data /var/data xfs defaults 0 0
+    ```
 
 5.  Regenerate the initramfs:
 
