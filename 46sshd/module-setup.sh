@@ -99,8 +99,12 @@ install() {
 
     systemctl -q --root "$initdir" enable sshd
 
-    # Add command to unlock luks volumes to bash history for easier use
-    echo systemd-tty-ask-password-agent >> "$initdir/root/.bash_history"
+    # Add commands to unlock luks volumes to bash history for easier use
+    {
+        echo "sudo cryptsetup luksOpen /dev/sdb1 encrypted_data"
+        echo "sudo mount /dev/mapper/encrypted_data /var/data"
+        echo systemd-tty-ask-password-agent
+    } >> "$initdir/root/.bash_history"
     chmod 600 "$initdir/root/.bash_history"
 
     # sshd requires /var/log/lastlog for tracking login information
